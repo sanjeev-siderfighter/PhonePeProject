@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.phonepeproject.applayers.domain.venues.entity.VenuesRequest
 import com.example.phonepeproject.applayers.domain.venues.usecase.GetVenuesUseCase
 import com.example.phonepeproject.applayers.presentation.screens.venueslist.uistate.VenuesListUiState
-import com.example.phonepeproject.providers.coroutineprovider.CoroutineDispatcherProvider
+import com.example.phonepeproject.providers.coroutineprovider.ICoroutineDispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class VenuesListViewModel @Inject constructor(
     private val getVenuesUseCase: GetVenuesUseCase,
-    private val coroutineDispatcherProvider: CoroutineDispatcherProvider
+    private val coroutineDispatcherProvider: ICoroutineDispatcherProvider
 ) : ViewModel() {
 
     private val _venuesListFlow = MutableStateFlow<VenuesListUiState>(VenuesListUiState.Loading)

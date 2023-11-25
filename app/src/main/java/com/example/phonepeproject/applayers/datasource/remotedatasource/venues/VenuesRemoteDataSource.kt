@@ -7,14 +7,14 @@ import com.example.phonepeproject.applayers.datasource.remotedatasource.CLIENT_I
 import com.example.phonepeproject.applayers.datasource.remotedatasource.RemoteApiClient
 import com.example.phonepeproject.applayers.datasource.remotedatasource.utils.ApiResult
 import com.example.phonepeproject.applayers.datasource.remotedatasource.venues.entities.VenuesRemoteResponse
-import com.example.phonepeproject.providers.coroutineprovider.CoroutineDispatcherProvider
+import com.example.phonepeproject.providers.coroutineprovider.ICoroutineDispatcherProvider
 import com.example.phonepeproject.utils.PER_PAGE_COUNT
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class VenuesRemoteDataSource @Inject constructor(
     private val apiClient: RemoteApiClient,
-    private val coroutineDispatcherProvider: CoroutineDispatcherProvider
+    private val coroutineDispatcherProvider: ICoroutineDispatcherProvider
 ) : IVenuesRemoteDataSource {
     override suspend fun getVenues(venuesRequest: VenuesRequestData): ApiResult<VenuesResponseData> {
         return withContext(coroutineDispatcherProvider.io) {

@@ -2,7 +2,7 @@ package com.example.phonepeproject.providers.coroutineprovider
 
 import kotlinx.coroutines.CoroutineDispatcher
 
-interface ICoroutineProvider {
+interface ICoroutineDispatcherProvider {
     val main: CoroutineDispatcher
     val io: CoroutineDispatcher
     val default: CoroutineDispatcher
