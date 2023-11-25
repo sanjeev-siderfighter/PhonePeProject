@@ -9,7 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.phonepeproject.applayers.domain.venues.entity.VenuesList
+import androidx.paging.PagingData
+import com.example.phonepeproject.applayers.datasource.remotedatasource.venues.entities.Venue
 import com.example.phonepeproject.applayers.presentation.screens.venueslist.recyclerview.VenuesListAdapter
 import com.example.phonepeproject.applayers.presentation.screens.venueslist.uistate.VenuesListUiState
 import com.example.phonepeproject.databinding.FragmentVenuesListBinding
@@ -48,6 +49,12 @@ class VenuesListFragment : Fragment() {
                         handleVenuesListUiState(venuesListUiState)
                     }
                 }
+
+                launch {
+                    viewModel.pagingFlow.collectLatest {
+                        updateRecyclerView(it)
+                    }
+                }
             }
         }
     }
@@ -78,7 +85,9 @@ class VenuesListFragment : Fragment() {
         binding.rvVenuesList.adapter = venuesListAdapter
     }
 
-    private fun updateRecyclerView(venuesList: VenuesList) {
-        venuesListAdapter.submitList(venuesList.venuesList)
+    private fun updateRecyclerView(venuesList: PagingData<Venue>) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            venuesListAdapter.submitData(venuesList)
+        }
     }
 }

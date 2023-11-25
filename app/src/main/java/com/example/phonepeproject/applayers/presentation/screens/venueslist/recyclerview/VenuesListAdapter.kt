@@ -2,13 +2,14 @@ package com.example.phonepeproject.applayers.presentation.screens.venueslist.rec
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ListAdapter
 import com.example.phonepeproject.applayers.datasource.remotedatasource.venues.entities.Venue
 import com.example.phonepeproject.databinding.VenueItemLayoutBinding
 import javax.inject.Inject
 
 class VenuesListAdapter @Inject constructor(venuesListDiffUtils: VenuesListDiffUtils) :
-    ListAdapter<Venue, VenuesListViewHoler>(
+    PagingDataAdapter<Venue, VenuesListViewHoler>(
         venuesListDiffUtils
     ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VenuesListViewHoler {
