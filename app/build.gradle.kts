@@ -20,6 +20,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -31,6 +34,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -47,5 +54,13 @@ dependencies {
     // hilt
     implementation("com.google.dagger:hilt-android:2.48")
     ksp("com.google.dagger:hilt-compiler:2.48")
-
+    // jetpack navigation (not compose)
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // retrofit gson convertor
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // okhttp logging intercepter
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 }
