@@ -6,11 +6,11 @@ import com.example.phonepeproject.databinding.VenueItemLayoutBinding
 
 class VenuesListViewHoler(private val binding: VenueItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(venue: Venue) {
+    fun bind(venue: Venue?) {
         with(binding) {
-            tvVenueLat.text = venue.location.lat.toString()
-            tvVenueLon.text = venue.location.lon.toString()
-            tvVenueName.text = venue.name
+            tvVenueLat.text = venue?.location?.lat?.toString()
+            tvVenueLon.text = venue?.location?.lon?.toString()
+            tvVenueName.text = venue?.name
         }
     }
 }

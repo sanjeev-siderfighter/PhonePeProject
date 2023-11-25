@@ -63,4 +63,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // okhttp logging intercepter
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    // paging
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 }
