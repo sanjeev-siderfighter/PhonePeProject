@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import com.example.phonepeproject.applayers.datasource.remotedatasource.venues.entities.Venue
 import com.example.phonepeproject.applayers.presentation.screens.venueslist.recyclerview.VenuesListAdapter
@@ -45,32 +47,32 @@ class VenuesListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.venuesListFlow.collectLatest { venuesListUiState ->
-                        handleVenuesListUiState(venuesListUiState)
+                    viewModel.pagingFlow.collectLatest {
+                        updateRecyclerView(it)
                     }
                 }
 
                 launch {
-                    viewModel.pagingFlow.collectLatest {
-                        updateRecyclerView(it)
+                    venuesListAdapter.loadStateFlow.collectLatest {
+                        handlePagingDataLoadStates(it)
                     }
                 }
             }
         }
     }
 
-    private fun handleVenuesListUiState(venuesListUiState: VenuesListUiState) {
-        when (venuesListUiState) {
-            VenuesListUiState.Error -> {
+    private fun handlePagingDataLoadStates(loadStates: CombinedLoadStates) {
+        when (loadStates.refresh) {
+            is LoadState.Error -> {
                 Snackbar.make(binding.root, "This is Error Case", Snackbar.LENGTH_INDEFINITE).show()
             }
 
-            VenuesListUiState.Loading -> {
-                Snackbar.make(binding.root, "Loading Venues List", Snackbar.LENGTH_LONG).show()
+            LoadState.Loading -> {
+                Snackbar.make(binding.root, "Loading Venues List", Snackbar.LENGTH_SHORT).show()
             }
 
-            is VenuesListUiState.Success -> {
-                updateRecyclerView(venuesList = venuesListUiState.venusList)
+            is LoadState.NotLoading -> {
+
             }
         }
     }
